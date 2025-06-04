@@ -23,6 +23,7 @@ export interface customCharacter extends Character {
 interface CharacterState {
   characters: customCharacter[]
   filter: Filter & { search: string }
+  isOpen: boolean
 }
 
 // Define the initial state using that type
@@ -33,7 +34,8 @@ const initialState: CharacterState = {
     specie: 'All',
     sort: 'none',
     search: ''
-  }
+  },
+  isOpen: true
 }
 
 export const charactersSlice = createSlice({
@@ -69,12 +71,15 @@ export const charactersSlice = createSlice({
       if (character) {
         character.comments.push({ comment: action.payload.comment, createdAt: new Date().toISOString() })
       }
+    },
+    setIsOpen: (state, action: PayloadAction<boolean>) => {
+      state.isOpen = action.payload
     }
   },
 })
 
 
-export const { loadCharacters, setFilter, starCharacter, unstarCharacter, setSearch, addComment } = charactersSlice.actions
+export const { loadCharacters, setFilter, starCharacter, unstarCharacter, setSearch, addComment, setIsOpen } = charactersSlice.actions
 
 export const getCharacterById = (state: RootState, id: string) => {
   return state.characters.characters.find(character => character.id === id)

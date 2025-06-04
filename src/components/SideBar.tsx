@@ -5,7 +5,8 @@ import { useQuery } from "@apollo/client";
 import { GET_CHARACTERS } from "../graphql/querys/getCharacters";
 import type { Character } from "../gql/graphql";
 import { loadCharacters } from "../store/slices/CharacterSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 interface CharactersData {
   characters: {
@@ -13,8 +14,11 @@ interface CharactersData {
   };
 }
 
+
+
 export const SideBar = () => {
   const dispatch = useDispatch();
+  const isOpen = useSelector((state: RootState) => state.characters.isOpen)
   useQuery<CharactersData>(GET_CHARACTERS, {
     variables: {
       page: 1,
@@ -24,7 +28,7 @@ export const SideBar = () => {
     },
   });
   return (
-    <aside className="w-[375px]  p-6 flex flex-col">
+    <aside className={`${isOpen ? "w-full" : "hidden lg:block"} lg:w-[375px]  p-6  flex-col `}>
       <h2 className="text-3xl font-light mb-6 ">Rick and Morty list</h2>
       <SearchSideBar />
       <StarredCharacters />

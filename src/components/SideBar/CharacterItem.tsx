@@ -1,6 +1,8 @@
 import { ButtonStarred } from "./ButtonStarred";
 import type { Character } from "../../gql/graphql";
 import { useNavigate, useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { setIsOpen } from "../../store/slices/CharacterSlice";
 
 interface props {
   character: Character
@@ -10,8 +12,9 @@ interface props {
 export const CharacterItem = ({ character, isStarred }: props) => {
   const navigate = useNavigate()
   const {id} = useParams()
-
+  const dispatch = useDispatch()
   const handleClick = () => {
+    dispatch(setIsOpen(false))
     navigate(`/character/${character.id}`)
   }
   return (
