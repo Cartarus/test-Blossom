@@ -1,13 +1,13 @@
 import { CharacterItem } from "./CharacterItem";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import type { customCharacter } from "../../store/slices/CharacterSlice";
+import { getFilteredStarredCharacters, type customCharacter } from "../../store/slices/CharacterSlice";
 
 export const StarredCharacters = () => {
 
   const { character } = useSelector((state: RootState) => state.characters.filter)
   const characters: customCharacter[] = useSelector(
-    (state: RootState) => state.characters.characters.filter(character => character.isStarred)
+    (state: RootState) => getFilteredStarredCharacters(state, state.characters.filter)
   );
   
     if (character !== 'Others') {

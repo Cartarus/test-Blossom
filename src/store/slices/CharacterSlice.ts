@@ -88,4 +88,21 @@ export const getFilteredCharacters = (state: RootState, filter: Filter & { searc
 }
 
 
+export const getFilteredStarredCharacters = (state: RootState, filter: Filter & { search: string }): customCharacter[] => {
+  return state.characters.characters.filter(character => {
+    
+
+    const matchesSpecieFilter =
+      filter.specie === 'All' ||
+      (filter.specie === 'Human' && character.species === 'Human') ||
+      (filter.specie === 'Alien' && character.species === 'Alien');
+
+    const matchesSearchFilter =
+      filter.search === '' ||
+      character.name?.toLowerCase().includes(filter.search.toLowerCase());
+
+    return character.isStarred && matchesSpecieFilter && matchesSearchFilter;
+  })
+}
+
 export default charactersSlice.reducer
