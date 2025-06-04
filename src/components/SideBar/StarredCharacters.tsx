@@ -1,11 +1,11 @@
-import type { Character } from "../../gql/graphql";
 import { CharacterItem } from "./CharacterItem";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
+import type { customCharacter } from "../../store/slices/CharacterSlice";
 
 export const StarredCharacters = () => {
-  const characters: Character[] = useSelector(
-    (state: RootState) => state.characters.starredCharacters
+  const characters: customCharacter[] = useSelector(
+    (state: RootState) => state.characters.characters.filter(character => character.isStarred)
   );
   return (
     <>

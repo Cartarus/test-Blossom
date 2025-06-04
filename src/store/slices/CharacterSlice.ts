@@ -3,10 +3,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Character } from '../../gql/graphql'
 import type { RootState } from '../store'
 
+export interface customCharacter extends Character {
+  isStarred: boolean
+}
+
 // Define a type for the slice state
 interface CharacterState {
-  characters: Character[]
-  starredCharacters: Character[]
+  characters: customCharacter[]
   filter: {
     character: string
     specie: string
@@ -16,7 +19,6 @@ interface CharacterState {
 // Define the initial state using that type
 const initialState: CharacterState = {
   characters: [],
-  starredCharacters: [],
   filter: {
     character: 'All',
     specie: 'All',
@@ -25,24 +27,21 @@ const initialState: CharacterState = {
 
 export const charactersSlice = createSlice({
   name: 'characters',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     loadCharacters: (state, action: PayloadAction<Character[]>) => {
-      state.characters = action.payload
+      state.characters = action.payload.map(character => ({ ...character, isStarred: false }))
     },
     starCharacter: (state, action: PayloadAction<Character['id']>) => {
       const character = state.characters.find(character => character.id === action.payload)
       if (character) {
-        state.starredCharacters.push(character)
-        state.characters = state.characters.filter(character => character.id !== action.payload)
+        character.isStarred = true
       }
     },
     unstarCharacter: (state, action: PayloadAction<Character['id']>) => {
-      const character = state.starredCharacters.find(character => character.id === action.payload)
+      const character = state.characters.find(character => character.id === action.payload)
       if (character) {
-        state.characters.push(character)
-        state.starredCharacters = state.starredCharacters.filter(character => character.id !== action.payload)
+        character.isStarred = false
       }
     },
     setFilter: (state, action: PayloadAction<{ character: string, specie: string }>) => {
@@ -52,10 +51,10 @@ export const charactersSlice = createSlice({
 })
 
 
-export const { loadCharacters, starCharacter, unstarCharacter, setFilter } = charactersSlice.actions
+export const { loadCharacters, setFilter, starCharacter, unstarCharacter } = charactersSlice.actions
 
 export const getCharacterById = (state: RootState, id: string) => {
-  return state.characters.characters.find(character => character.id === id) || state.characters.starredCharacters.find(character => character.id === id)
+  return state.characters.characters.find(character => character.id === id)
 }
 
 
