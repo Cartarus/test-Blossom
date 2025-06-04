@@ -28,12 +28,15 @@ export const SideBar = () => {
     },
   });
   return (
-    <aside className={`${isOpen ? "w-full" : "hidden lg:block"} lg:w-[375px]  p-6  flex-col `}>
-      <h2 className="text-3xl font-light mb-6 ">Rick and Morty list</h2>
+    <aside className={`${isOpen ? "w-full" : "hidden lg:block"} lg:w-[375px] p-6 flex flex-col h-auto lg:h-screen`}>
+      <h2 className="text-3xl font-light mb-6">Rick and Morty list</h2>
       <SearchSideBar />
-      <StarredCharacters />
-      <Characters />
-      {/* Aquí puedes agregar el contenido del sidebar, como la lista de personajes */}
+      <div className="flex flex-col flex-1 lg:min-h-0">
+        <StarredCharacters />
+        <div className="flex-1 overflow-y-auto">
+          <Characters />
+        </div>
+      </div>
     </aside>
   );
 };
