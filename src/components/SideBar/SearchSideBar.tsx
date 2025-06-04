@@ -42,7 +42,7 @@ export const SearchSideBar = () => {
         </button>
         {showPopover && (
           <div ref={popoverRef}>
-            <PopoverFilter />
+            <PopoverFilter setShowPopover={setShowPopover} />
           </div>
         )}
     </label>
