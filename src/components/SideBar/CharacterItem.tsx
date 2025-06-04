@@ -1,5 +1,6 @@
 import { ButtonStarred } from "./ButtonStarred";
 import type { Character } from "../../gql/graphql";
+import { useNavigate, useParams } from "react-router";
 
 interface props {
   character: Character
@@ -7,9 +8,15 @@ interface props {
 }
 
 export const CharacterItem = ({ character, isStarred }: props) => {
+  const navigate = useNavigate()
+  const {id} = useParams()
+
+  const handleClick = () => {
+    navigate(`/character/${character.id}`)
+  }
   return (
-    <div className=" rounded-lg  ">
-      <div className={`flex items-center justify-between mx-5 py-5 ${!isStarred ? 'border-t border-gray-200' : ''}`}>
+    <div className={`rounded-lg  cursor-pointer ${id === character.id ? 'bg-primary-100' : ''}`} onClick={handleClick}>
+      <div className={`flex items-center justify-between mx-5 py-4 ${!isStarred ? 'border-t border-gray-200' : ''}`}>
         <div className="flex items-center ">
           <img src={character.image ?? ''} alt="Character" className="w-8 h-8 rounded-full" />
           <div className="flex flex-col ml-4">

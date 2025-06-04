@@ -11,7 +11,8 @@ interface ButtonStarredProps {
 
 export const ButtonStarred = ({ isStarred, characterId }: ButtonStarredProps) => {
   const dispatch = useDispatch()
-  const handleStar = () => {
+  const handleStar = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
     if (isStarred) {
       dispatch(unstarCharacter(characterId))
     } else {
