@@ -19,7 +19,7 @@ export const StarredCharacters = () => {
       <div>
         <div
           className={`flex flex-col ${
-            characters.length > 3 ? "overflow-y-scroll h-[264px] scroll-visible" : ""
+            characters.length > 3 ? "overflow-y-scroll h-[260px] scroll-visible" : ""
           }`}
         >
           {characters.map((character) => (
