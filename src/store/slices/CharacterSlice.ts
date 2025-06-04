@@ -81,7 +81,7 @@ export const getCharacterById = (state: RootState, id: string) => {
 }
 
 export const getFilteredCharacters = (state: RootState, filter: Filter & { search: string }): customCharacter[] => {
-  return state.characters.characters.filter(character => {
+  const characters = state.characters.characters.filter(character => {
     
     const matchesCharacterFilter = 
       (filter.character === 'All' && !character.isStarred) ||
@@ -93,17 +93,27 @@ export const getFilteredCharacters = (state: RootState, filter: Filter & { searc
       (filter.specie === 'Human' && character.species === 'Human') ||
       (filter.specie === 'Alien' && character.species === 'Alien');
 
+    
+
     const matchesSearchFilter =
       filter.search === '' ||
       character.name?.toLowerCase().includes(filter.search.toLowerCase());
 
-    return matchesCharacterFilter && matchesSpecieFilter && matchesSearchFilter;
+    return matchesCharacterFilter && matchesSpecieFilter && matchesSearchFilter ;
   });
+
+  if (filter.sort === 'A-Z') {
+    return characters.sort((a, b) => a.name?.localeCompare(b.name ?? '') ?? 0);
+  } else if (filter.sort === 'Z-A') {
+    return characters.sort((a, b) => b.name?.localeCompare(a.name ?? '') ?? 0);
+  }
+
+  return characters;
 }
 
 
 export const getFilteredStarredCharacters = (state: RootState, filter: Filter & { search: string }): customCharacter[] => {
-  return state.characters.characters.filter(character => {
+  const characters = state.characters.characters.filter(character => {
     
 
     const matchesSpecieFilter =
@@ -117,6 +127,14 @@ export const getFilteredStarredCharacters = (state: RootState, filter: Filter & 
 
     return character.isStarred && matchesSpecieFilter && matchesSearchFilter;
   })
+
+  if (filter.sort === 'A-Z') {
+    return characters.sort((a, b) => a.name?.localeCompare(b.name ?? '') ?? 0);
+  } else if (filter.sort === 'Z-A') {
+    return characters.sort((a, b) => b.name?.localeCompare(a.name ?? '') ?? 0);
+  } 
+
+  return characters;
 }
 
 export default charactersSlice.reducer
