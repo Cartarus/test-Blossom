@@ -66,8 +66,9 @@ export const getCharacterById = (state: RootState, id: string) => {
   return state.characters.characters.find(character => character.id === id)
 }
 
-export const getFilteredCharacters = (state: RootState, filter: Filter): customCharacter[] => {
+export const getFilteredCharacters = (state: RootState, filter: Filter & { search: string }): customCharacter[] => {
   return state.characters.characters.filter(character => {
+    
     const matchesCharacterFilter = 
       (filter.character === 'All' && !character.isStarred) ||
       (filter.character === 'Starred' && character.isStarred) ||
@@ -78,7 +79,11 @@ export const getFilteredCharacters = (state: RootState, filter: Filter): customC
       (filter.specie === 'Human' && character.species === 'Human') ||
       (filter.specie === 'Alien' && character.species === 'Alien');
 
-    return matchesCharacterFilter && matchesSpecieFilter;
+    const matchesSearchFilter =
+      filter.search === '' ||
+      character.name?.toLowerCase().includes(filter.search.toLowerCase());
+
+    return matchesCharacterFilter && matchesSpecieFilter && matchesSearchFilter;
   });
 }
 

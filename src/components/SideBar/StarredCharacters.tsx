@@ -4,10 +4,14 @@ import type { RootState } from "../../store/store";
 import type { customCharacter } from "../../store/slices/CharacterSlice";
 
 export const StarredCharacters = () => {
+
+  const { character } = useSelector((state: RootState) => state.characters.filter)
   const characters: customCharacter[] = useSelector(
     (state: RootState) => state.characters.characters.filter(character => character.isStarred)
   );
-  return (
+  
+    if (character !== 'Others') {
+    return (
     <>
       <h2 className="text-xs uppercase font-semibold text-gray-500  py-4 px-5">
         Starred Characters ({characters.length})
@@ -28,5 +32,5 @@ export const StarredCharacters = () => {
         </div>
       </div>
     </>
-  );
+   ) }
 };
