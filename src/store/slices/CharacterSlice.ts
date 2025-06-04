@@ -8,9 +8,14 @@ export type Filter = {
   specie: 'All' | 'Human' | 'Alien'
 }
 
+export type Comment = {
+  comment: string
+  createdAt: string
+}
+
 export interface customCharacter extends Character {
   isStarred: boolean
-  comments: string[]
+  comments: Comment[]
 }
 
 // Define a type for the slice state
@@ -60,7 +65,7 @@ export const charactersSlice = createSlice({
     addComment: (state, action: PayloadAction<{ id: string, comment: string }>) => {
       const character = state.characters.find(character => character.id === action.payload.id)
       if (character) {
-        character.comments.push(action.payload.comment)
+        character.comments.push({ comment: action.payload.comment, createdAt: new Date().toISOString() })
       }
     }
   },

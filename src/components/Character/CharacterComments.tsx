@@ -1,6 +1,6 @@
 import { type customCharacter } from "../../store/slices/CharacterSlice"
 import { AddComment } from "./AddComment"
-import { Comment } from "./Comment"
+import {  CommentItem } from "./CommentItem"
 
 interface CharacterCommentsProps {
   id: string
@@ -16,7 +16,7 @@ export const CharacterComments = ({ id, comments }: CharacterCommentsProps) => {
         <AddComment id={id} />
         <div className="flex flex-col-reverse gap-2 mt-4 ">
             {comments.map((comment, index) => (
-                <Comment key={index} comment={comment} />
+                <CommentItem key={index} comment={comment} />
             ))}
         </div>
     </div>
