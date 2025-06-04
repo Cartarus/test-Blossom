@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# Rick and Morty API Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web que consume la API de Rick and Morty, desarrollada con React, TypeScript y Vite.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologías Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- TypeScript
+- GraphQL con Apollo Client
+- Redux Toolkit para manejo de estado
+- TailwindCSS para estilos
+- Vite como bundler
+- ESLint para linting
 
-## Expanding the ESLint configuration
+## 📋 Prerrequisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (versión recomendada: 18 o superior)
+- npm o yarn
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🔧 Instalación y Configuración
+
+1. Clona el repositorio:
+```bash
+git clone https://github.com/Cartarus/test-Blossom.git
+cd prueba-tecnica
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Instala las dependencias:
+```bash
+npm install
 ```
+
+3. Inicia el servidor de desarrollo:
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en `http://localhost:5173`
+
+## 🛠️ Scripts Disponibles
+
+- `npm run dev`: Inicia el servidor de desarrollo
+- `npm run build`: Construye la aplicación para producción
+- `npm run lint`: Ejecuta el linter
+- `npm run preview`: Previsualiza la build de producción
+- `npm run codegen`: Genera los tipos de GraphQL
+
+## 📦 Estructura del Proyecto
+
+```
+prueba-tecnica/
+├── src/              # Código fuente
+│   ├── assets/       # Recursos estáticos (imágenes, fuentes, etc.)
+│   ├── components/   # Componentes de React
+│   ├── gql/         # Definiciones de GraphQL
+│   ├── graphql/     # Configuración y queries de GraphQL
+│   ├── hooks/       # Custom hooks de React
+│   ├── layauts/     # Layouts de la aplicación
+│   ├── pages/       # Páginas de la aplicación
+│   ├── routes/      # Configuración de rutas
+│   ├── store/       # Estado global (Redux)
+│   ├── utils/       # Utilidades y funciones auxiliares
+│   ├── App.tsx      # Componente principal
+│   ├── main.tsx     # Punto de entrada de la aplicación
+│   └── index.css    # Estilos globales
+├── public/           # Archivos estáticos
+├── node_modules/     # Dependencias
+├── package.json      # Dependencias y scripts
+├── tsconfig.json     # Configuración de TypeScript
+└── vite.config.ts    # Configuración de Vite
+```
+
