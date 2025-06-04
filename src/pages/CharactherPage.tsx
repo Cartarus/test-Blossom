@@ -6,8 +6,9 @@ import type { RootState } from "../store/store";
 import { useParams } from "react-router";
 import { getCharacterById } from "../store/slices/CharacterSlice";
 import { MdError } from "react-icons/md";
+import { CharacterComments } from "../components/Character/CharacterComments";
 
-export const CaractherPage = () => {
+export const CharacterPage = () => {
   const { id } = useParams()
   
 
@@ -23,10 +24,13 @@ export const CaractherPage = () => {
   return (
     
       <div
-        className="px-[100px] flex flex-col gap-4"
+        className="lg:px-[100px] px-4 flex flex-col gap-4  h-full overflow-y-auto"
       >
+        <div className="flex flex-col gap-4">
         <CharacterHeader image={character?.image ?? ''} name={character?.name ?? ''}/>
         <CharacterInfo specie={character?.species ?? ''} status={character?.status ?? ''}  />
+        <CharacterComments id={character?.id ?? ''} comments={character?.comments ?? []} />
+        </div>
       </div>
     
   );

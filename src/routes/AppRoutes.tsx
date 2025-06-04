@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { CharatersLayaout } from "../layauts/CharatersLayaout";
-import { CaractherPage } from "../pages/CaractherPage";
 import { Home } from "../pages/Home";
+import { CharacterPage } from "../pages/CharactherPage";
 
 export const AppRoutes = () => {
   return (
@@ -9,7 +9,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route  element={<CharatersLayaout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/character/:id" element={<CaractherPage />} />
+              <Route path="/character/:id" element={<CharacterPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

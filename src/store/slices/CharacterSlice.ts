@@ -10,6 +10,7 @@ export type Filter = {
 
 export interface customCharacter extends Character {
   isStarred: boolean
+  comments: string[]
 }
 
 // Define a type for the slice state
@@ -33,7 +34,7 @@ export const charactersSlice = createSlice({
   initialState,
   reducers: {
     loadCharacters: (state, action: PayloadAction<Character[]>) => {
-      state.characters = action.payload.map(character => ({ ...character, isStarred: false }))
+      state.characters = action.payload.map(character => ({ ...character, isStarred: false, comments: [] }))
     },
     starCharacter: (state, action: PayloadAction<Character['id']>) => {
       const character = state.characters.find(character => character.id === action.payload)
@@ -55,12 +56,18 @@ export const charactersSlice = createSlice({
     },
     setSearch: (state, action: PayloadAction<string>) => {
       state.filter.search = action.payload
+    },
+    addComment: (state, action: PayloadAction<{ id: string, comment: string }>) => {
+      const character = state.characters.find(character => character.id === action.payload.id)
+      if (character) {
+        character.comments.push(action.payload.comment)
+      }
     }
   },
 })
 
 
-export const { loadCharacters, setFilter, starCharacter, unstarCharacter, setSearch } = charactersSlice.actions
+export const { loadCharacters, setFilter, starCharacter, unstarCharacter, setSearch, addComment } = charactersSlice.actions
 
 export const getCharacterById = (state: RootState, id: string) => {
   return state.characters.characters.find(character => character.id === id)
