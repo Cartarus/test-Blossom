@@ -7,11 +7,11 @@ import {
 } from "../../store/slices/CharacterSlice";
 
 interface StarredCharactersProps {
-  showMesageFilter: boolean;
+  showMessageFilter: boolean;
 }
 
 export const StarredCharacters = ({
-  showMesageFilter,
+  showMessageFilter,
 }: StarredCharactersProps) => {
   const { character } = useSelector(
     (state: RootState) => state.characters.filter
@@ -24,7 +24,7 @@ export const StarredCharacters = ({
   if (character !== "Others") {
     return (
       <>
-        {!showMesageFilter && (
+        {!showMessageFilter && (
           <h2 className="text-xs uppercase font-semibold text-gray-500  py-4 px-5">
             Starred Characters ({characters.length})
           </h2>

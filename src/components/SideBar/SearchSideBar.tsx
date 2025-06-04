@@ -5,8 +5,12 @@ import { PopoverFilter } from "./PopoverFilter";
 import { useDispatch } from "react-redux";
 import { setSearch } from "../../store/slices/CharacterSlice";
 
-export const SearchSideBar = () => {
-  const [showPopover, setShowPopover] = useState<boolean>(false);
+interface SearchSideBarProps {
+  showPopover: boolean
+  setShowPopover: (show: boolean) => void
+}
+
+export const SearchSideBar = ({ showPopover, setShowPopover }: SearchSideBarProps) => {
   const [search, setSearchIntern] = useState<string>("")
   const dispatch = useDispatch()
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -28,7 +32,7 @@ export const SearchSideBar = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [setShowPopover]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchIntern(e.target.value)

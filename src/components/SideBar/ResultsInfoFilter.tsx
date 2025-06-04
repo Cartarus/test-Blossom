@@ -42,7 +42,7 @@ export const ResultsInfoFilter = () => {
     }
 
   return (
-    <div className='flex justify-between items-center px-5'>
+    <div className='flex justify-between items-center p-5'>
         <p className=' text-[#2563EB] font-semibold text-base'>
          {totalResults()} Results
         </p>

@@ -3,6 +3,7 @@ import type { Character } from "../../gql/graphql";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { setIsOpen } from "../../store/slices/CharacterSlice";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 interface props {
   character: Character
@@ -13,8 +14,14 @@ export const CharacterItem = ({ character, isStarred }: props) => {
   const navigate = useNavigate()
   const {id} = useParams()
   const dispatch = useDispatch()
-  const handleClick = () => {
-    dispatch(setIsOpen(false))
+  const isSmallScreen = useMediaQuery('(max-width: 1023px)') // lg breakpoint is 1024px
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+    
+    if (isSmallScreen) {
+      dispatch(setIsOpen(false))
+    }
     navigate(`/character/${character.id}`)
   }
   return (
