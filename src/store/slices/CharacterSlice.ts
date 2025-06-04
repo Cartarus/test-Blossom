@@ -6,6 +6,7 @@ import type { RootState } from '../store'
 export type Filter = {
   character: 'All' | 'Starred' | 'Others'
   specie: 'All' | 'Human' | 'Alien'
+  sort: 'none' | 'A-Z' | 'Z-A'
 }
 
 export type Comment = {
@@ -30,6 +31,7 @@ const initialState: CharacterState = {
   filter: {
     character: 'All',
     specie: 'All',
+    sort: 'none',
     search: ''
   }
 }
