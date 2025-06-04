@@ -1,8 +1,28 @@
 import { SearchSideBar } from './SideBar/SearchSideBar'
 import { StarredCharacters } from './SideBar/StarredCharacters'
 import { Characters } from './SideBar/Characters'
+import { useQuery } from '@apollo/client'
+import { GET_CHARACTERS } from '../graphql/querys/getCharacters'
+import type { Character } from '../gql/graphql'
+import { loadCharacters } from '../store/slices/CharacterSlice'
+import { useDispatch } from 'react-redux'
+
+interface CharactersData {
+  characters: {
+    results: Character[];
+  };
+}
 
 export const SideBar = () => {
+  const dispatch = useDispatch()
+  useQuery<CharactersData>(GET_CHARACTERS, {
+    variables: {
+      page: 1
+    },
+    onCompleted: (data) => {
+      dispatch(loadCharacters(data.characters.results))
+    }
+  })
   return (
     <aside className="w-[375px]  p-6 flex flex-col">
     <h2 className="text-3xl font-light mb-6 ">Rick and Morty list</h2>

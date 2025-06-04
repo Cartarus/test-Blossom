@@ -13,3 +13,30 @@ body {
     /* font-family: 'Greycliff', sans-serif; */
     /* No se aplica la fuente  ya que no solo consegui la version demo por lo que los caracteres especiales no se aplican*/
 }
+
+
+
+/* For WebKit browsers */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.4);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  /* Always show scrollbar (optional, specific to macOS) */
+  .scroll-visible {
+    scrollbar-width: auto; /* Firefox */
+    -ms-overflow-style: auto; /* IE 10+ */
+  }
+  
+
+  
+  
