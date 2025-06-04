@@ -36,13 +36,22 @@ export const PopoverFilter = ({ setShowPopover }: PopoverFilterProps) => {
     setShowPopover(false);
   };
 
+  const handleBack = () => {
+    dispatch(setFilter({
+      character: "All",
+      specie: "All",
+      sort: "none",
+    }))
+    setShowPopover(false)
+  }
+
   return (
 
     <div className="fixed lg:absolute inset-0 lg:inset-auto lg:right-0 lg:top-full mt-0 lg:mt-2 z-10 p-6 bg-white border border-gray-200 rounded-none lg:rounded-md lg: w-full shadow-lg flex flex-col h-full gap-6 lg:h-auto justify-between">
       <div className="flex flex-col gap-6">
       <div className="flex lg:hidden justify-between items-center">
         <button
-          onClick={() => setShowPopover(false)}
+          onClick={handleBack}
           className="text-primary-600 "
         >
           <MdArrowBack size={24} />
