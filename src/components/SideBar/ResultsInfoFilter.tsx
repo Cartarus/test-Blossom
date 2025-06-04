@@ -47,7 +47,7 @@ export const ResultsInfoFilter = () => {
          {totalResults()} Results
         </p>
 
-        <p className=' text-gray-500 font-semibold text-sm bg-[#63D83833] px-3 py-0.5 rounded-xl'>
+        <p className=' text-[#3B8520]  font-semibold text-sm bg-[#63D83833] px-3 py-0.5 rounded-xl'>
         {totalFiltersApplied()} filter{totalFiltersApplied() > 1 ? "s" : ""}
         </p>
     </div>
