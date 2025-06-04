@@ -25,7 +25,7 @@ export const CaractherPage = () => {
       <div
         className="px-[100px] flex flex-col gap-4"
       >
-        <CharacterHeader image={character?.image ?? ''} name={character?.name ?? ''} isStarred={true} />
+        <CharacterHeader image={character?.image ?? ''} name={character?.name ?? ''}/>
         <CharacterInfo specie={character?.species ?? ''} status={character?.status ?? ''}  />
       </div>
     

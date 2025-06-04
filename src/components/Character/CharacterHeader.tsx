@@ -1,13 +1,17 @@
 import React from 'react'
 import { ButtonStarred } from '../SideBar/ButtonStarred'
+import { useParams } from 'react-router'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../store/store'
 
 interface CharacterHeaderProps {
   image: string
   name: string
-  isStarred: boolean
 }
 
-export const CharacterHeader = ({ image, name, isStarred }: CharacterHeaderProps) => {
+export const CharacterHeader = ({ image, name }: CharacterHeaderProps) => {
+  const {id} = useParams()
+  const isStarred = useSelector((state: RootState) => state.characters.starredCharacters.some(character => character.id === id))
   return (
     <div className='flex flex-col'>
       <div className='flex items-center mb-2'>
@@ -18,7 +22,7 @@ export const CharacterHeader = ({ image, name, isStarred }: CharacterHeaderProps
             className='w-[75px] h-[75px] rounded-full object-cover border-2 border-gray-200'
           />
           <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4">
-            <ButtonStarred isStarred={isStarred} />
+            <ButtonStarred isStarred={isStarred} characterId={id ?? ''} />
           </div>
         </div>
       </div>
