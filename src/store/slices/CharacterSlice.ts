@@ -3,6 +3,11 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Character } from '../../gql/graphql'
 import type { RootState } from '../store'
 
+export type Filter = {
+  character: 'All' | 'Starred' | 'Others'
+  specie: 'All' | 'Human' | 'Alien'
+}
+
 export interface customCharacter extends Character {
   isStarred: boolean
 }
@@ -10,10 +15,7 @@ export interface customCharacter extends Character {
 // Define a type for the slice state
 interface CharacterState {
   characters: customCharacter[]
-  filter: {
-    character: string
-    specie: string
-  }
+  filter: Filter
 }
 
 // Define the initial state using that type
@@ -37,14 +39,17 @@ export const charactersSlice = createSlice({
       if (character) {
         character.isStarred = true
       }
+      state.characters = state.characters.map(character => character.id === action.payload ? { ...character, isStarred: true } : character)
+
     },
     unstarCharacter: (state, action: PayloadAction<Character['id']>) => {
       const character = state.characters.find(character => character.id === action.payload)
       if (character) {
         character.isStarred = false
       }
+      state.characters = state.characters.map(character => character.id === action.payload ? { ...character, isStarred: false } : character)
     },
-    setFilter: (state, action: PayloadAction<{ character: string, specie: string }>) => {
+    setFilter: (state, action: PayloadAction<Filter>) => {
       state.filter = action.payload
     }
   },
@@ -55,6 +60,22 @@ export const { loadCharacters, setFilter, starCharacter, unstarCharacter } = cha
 
 export const getCharacterById = (state: RootState, id: string) => {
   return state.characters.characters.find(character => character.id === id)
+}
+
+export const getFilteredCharacters = (state: RootState, filter: Filter): customCharacter[] => {
+  return state.characters.characters.filter(character => {
+    const matchesCharacterFilter = 
+      (filter.character === 'All' && !character.isStarred) ||
+      (filter.character === 'Starred' && character.isStarred) ||
+      (filter.character === 'Others' && !character.isStarred);
+
+    const matchesSpecieFilter =
+      filter.specie === 'All' ||
+      (filter.specie === 'Human' && character.species === 'Human') ||
+      (filter.specie === 'Alien' && character.species === 'Alien');
+
+    return matchesCharacterFilter && matchesSpecieFilter;
+  });
 }
 
 

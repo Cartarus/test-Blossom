@@ -1,12 +1,11 @@
-interface PopoverOptionsProps {
+interface PopoverOptionsProps<T extends string> {
     title: string;
-    options: string[];
-    selected: string;
-    setSelected: (selected: string) => void;
+    options: T[];
+    selected: T;
+    setSelected: (selected: T) => void;
 }
 
-
-export const PopoverOptions = ({ title, options, selected, setSelected }: PopoverOptionsProps) => {
+export const PopoverOptions = <T extends string>({ title, options, selected, setSelected }: PopoverOptionsProps<T>) => {
   return (
     <div className="flex flex-col">
         <h2 className=" font-medium text-base text-gray-500 mb-2">{title}</h2>
