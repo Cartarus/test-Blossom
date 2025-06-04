@@ -7,13 +7,20 @@ import type { RootState } from '../store'
 interface CharacterState {
   characters: Character[]
   starredCharacters: Character[]
-  
+  filter: {
+    character: string
+    specie: string
+  }
 }
 
 // Define the initial state using that type
 const initialState: CharacterState = {
   characters: [],
-  starredCharacters: []
+  starredCharacters: [],
+  filter: {
+    character: 'All',
+    specie: 'All',
+  }
 }
 
 export const charactersSlice = createSlice({
@@ -37,12 +44,15 @@ export const charactersSlice = createSlice({
         state.characters.push(character)
         state.starredCharacters = state.starredCharacters.filter(character => character.id !== action.payload)
       }
+    },
+    setFilter: (state, action: PayloadAction<{ character: string, specie: string }>) => {
+      state.filter = action.payload
     }
   },
 })
 
 
-export const { loadCharacters, starCharacter, unstarCharacter, } = charactersSlice.actions
+export const { loadCharacters, starCharacter, unstarCharacter, setFilter } = charactersSlice.actions
 
 export const getCharacterById = (state: RootState, id: string) => {
   return state.characters.characters.find(character => character.id === id) || state.characters.starredCharacters.find(character => character.id === id)
