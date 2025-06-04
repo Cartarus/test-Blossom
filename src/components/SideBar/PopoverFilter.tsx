@@ -1,7 +1,8 @@
 import {  useState } from "react";
 import { PopoverOptions } from "./PopoverOptions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFilter, type Filter } from "../../store/slices/CharacterSlice";
+import type { RootState } from "../../store/store";
 
 const options_character: Filter['character'][] = ["All", "Starred", "Others"]
 const options_specie: Filter['specie'][] = ["All", "Human", "Alien"]
@@ -12,15 +13,17 @@ interface PopoverFilterProps {
 
 export const PopoverFilter = ({ setShowPopover }: PopoverFilterProps) => {
 
-  const [selectedCharacter, setSelectedCharacter] = useState<Filter['character']>("All")
-  const [selectedSpecie, setSelectedSpecie] = useState<Filter['specie']>("All")
+  const { character, specie} = useSelector((state: RootState) => state.characters.filter)
+
+  const [selectedCharacter, setSelectedCharacter] = useState<Filter['character']>(character)
+  const [selectedSpecie, setSelectedSpecie] = useState<Filter['specie']>(specie)
   const dispatch = useDispatch()
 
   
 
 
   const handleOnClick = () => {
-    dispatch(setFilter({ character: selectedCharacter, specie: selectedSpecie }))
+    dispatch(setFilter({ character: selectedCharacter, specie: selectedSpecie}))
     setShowPopover(false)
   }
     

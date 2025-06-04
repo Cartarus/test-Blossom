@@ -15,7 +15,7 @@ export interface customCharacter extends Character {
 // Define a type for the slice state
 interface CharacterState {
   characters: customCharacter[]
-  filter: Filter
+  filter: Filter & { search: string }
 }
 
 // Define the initial state using that type
@@ -24,6 +24,7 @@ const initialState: CharacterState = {
   filter: {
     character: 'All',
     specie: 'All',
+    search: ''
   }
 }
 
@@ -50,13 +51,16 @@ export const charactersSlice = createSlice({
       state.characters = state.characters.map(character => character.id === action.payload ? { ...character, isStarred: false } : character)
     },
     setFilter: (state, action: PayloadAction<Filter>) => {
-      state.filter = action.payload
+      state.filter = { ...state.filter, ...action.payload }
+    },
+    setSearch: (state, action: PayloadAction<string>) => {
+      state.filter.search = action.payload
     }
   },
 })
 
 
-export const { loadCharacters, setFilter, starCharacter, unstarCharacter } = charactersSlice.actions
+export const { loadCharacters, setFilter, starCharacter, unstarCharacter, setSearch } = charactersSlice.actions
 
 export const getCharacterById = (state: RootState, id: string) => {
   return state.characters.characters.find(character => character.id === id)

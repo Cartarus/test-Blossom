@@ -2,9 +2,13 @@ import { FiSearch } from "react-icons/fi";
 import { TbAdjustments } from "react-icons/tb";
 import { useState, useRef, useEffect } from "react";
 import { PopoverFilter } from "./PopoverFilter";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../../store/slices/CharacterSlice";
 
 export const SearchSideBar = () => {
   const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [search, setSearchIntern] = useState<string>("")
+  const dispatch = useDispatch()
   const popoverRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -26,10 +30,15 @@ export const SearchSideBar = () => {
     };
   }, []);
 
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchIntern(e.target.value)
+    dispatch(setSearch(e.target.value))
+  }
+
   return (
     <label className="flex items-center  bg-gray-100 px-5  mb-4 relative rounded-md">
         <FiSearch size={20} fontStyle={'bold'} className="text-gray-500"/>
-        <input type="text"  placeholder="Search or filter results" className="w-full ml-2 focus:outline-none text-sm" />
+        <input type="text"  placeholder="Search or filter results" className="w-full ml-2 focus:outline-none text-sm" value={search} onChange={handleOnChange} />
         <button 
           ref={buttonRef}
           className={`m-2 p-2 rounded-lg ${showPopover ? 'bg-primary-100' : ''}`}
