@@ -4,7 +4,7 @@ import { Characters } from "./SideBar/Characters";
 import { useQuery } from "@apollo/client";
 import { GET_CHARACTERS } from "../graphql/querys/getCharacters";
 import type { Character } from "../gql/graphql";
-import { loadCharacters, setFilter } from "../store/slices/CharacterSlice";
+import { loadCharacters, setFilter, setIsOpen } from "../store/slices/CharacterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import { ResultsInfoFilter } from "./SideBar/ResultsInfoFilter";
@@ -74,6 +74,17 @@ export const SideBar = () => {
     setShowMessageFilterAdvanced(false)
     navigate('/')
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        dispatch(setIsOpen(true))
+      }
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [dispatch])
 
 
   return (
