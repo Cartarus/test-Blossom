@@ -22,7 +22,7 @@ Este proyecto es una aplicación web que consume la API de Rick and Morty, desar
 1. Clona el repositorio:
 ```bash
 git clone https://github.com/Cartarus/test-Blossom.git
-cd prueba-tecnica
+cd test-Blossom
 ```
 
 2. Instala las dependencias:
