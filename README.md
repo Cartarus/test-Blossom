@@ -57,6 +57,8 @@ El proyecto utiliza Jest y React Testing Library para las pruebas unitarias y de
 
 Los tests se organizan siguiendo la misma estructura del proyecto, con archivos `.test.tsx` o `.spec.tsx` junto a los componentes que prueban:
 
+### Estructura del proyecto
+
 ```
 prueba-tecnica/
 ├── src/              # Código fuente
