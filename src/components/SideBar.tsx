@@ -84,7 +84,7 @@ export const SideBar = () => {
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [dispatch])
+  }, [dispatch, isOpen, navigate])
 
 
   return (

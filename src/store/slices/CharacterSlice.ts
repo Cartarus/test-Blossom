@@ -15,6 +15,7 @@ export type Comment = {
 }
 
 export interface customCharacter extends Character {
+  isDeleted: boolean
   isStarred: boolean
   comments: Comment[]
 }
@@ -43,7 +44,7 @@ export const charactersSlice = createSlice({
   initialState,
   reducers: {
     loadCharacters: (state, action: PayloadAction<Character[]>) => {
-      state.characters = action.payload.map(character => ({ ...character, isStarred: false, comments: [] }))
+      state.characters = action.payload.map(character => ({ ...character, isStarred: false, comments: [], isDeleted: false }))
     },
     starCharacter: (state, action: PayloadAction<Character['id']>) => {
       const character = state.characters.find(character => character.id === action.payload)
@@ -74,12 +75,19 @@ export const charactersSlice = createSlice({
     },
     setIsOpen: (state, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload
+    },
+    deleteCharacter: (state, action: PayloadAction<string>) => {
+      const character = state.characters.find(character => character.id === action.payload)
+      if (character) {
+        character.isDeleted = true
+      }
+      state.characters = state.characters.map(character => character.id === action.payload ? { ...character, isDeleted: true } : character)
     }
   },
 })
 
 
-export const { loadCharacters, setFilter, starCharacter, unstarCharacter, setSearch, addComment, setIsOpen } = charactersSlice.actions
+export const { loadCharacters, setFilter, starCharacter, unstarCharacter, setSearch, addComment, setIsOpen, deleteCharacter } = charactersSlice.actions
 
 export const getCharacterById = (state: RootState, id: string) => {
   return state.characters.characters.find(character => character.id === id)
@@ -104,7 +112,7 @@ export const getFilteredCharacters = (state: RootState, filter: Filter & { searc
       filter.search === '' ||
       character.name?.toLowerCase().includes(filter.search.toLowerCase());
 
-    return matchesCharacterFilter && matchesSpecieFilter && matchesSearchFilter ;
+    return matchesCharacterFilter && matchesSpecieFilter && matchesSearchFilter && !character.isDeleted;
   });
 
   if (filter.sort === 'A-Z') {
@@ -130,7 +138,7 @@ export const getFilteredStarredCharacters = (state: RootState, filter: Filter & 
       filter.search === '' ||
       character.name?.toLowerCase().includes(filter.search.toLowerCase());
 
-    return character.isStarred && matchesSpecieFilter && matchesSearchFilter;
+    return character.isStarred && matchesSpecieFilter && matchesSearchFilter && !character.isDeleted;
   })
 
   if (filter.sort === 'A-Z') {
