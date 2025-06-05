@@ -1,4 +1,3 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import { CharacterHeader } from "../components/Character/CharacterHeader";
 import { CharacterInfo } from "../components/Character/CharacterInfo";
@@ -7,12 +6,28 @@ import { useNavigate, useParams } from "react-router";
 import { getCharacterById, setIsOpen } from "../store/slices/CharacterSlice";
 import { MdArrowBack, MdError } from "react-icons/md";
 import { CharacterComments } from "../components/Character/CharacterComments";
+import { useEffect, useState } from "react";
 
 export const CharacterPage = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const character = useSelector((state: RootState) => getCharacterById(state, id ?? ''));
+  const [wasLg, setWasLg] = useState(window.innerWidth >= 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isLg = window.innerWidth >= 1024;
+      if (!isLg && wasLg) {
+        dispatch(setIsOpen(true))
+        navigate('/')
+      }
+      setWasLg(isLg);
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [dispatch, navigate, wasLg])
 
   if (!character) {
     return <div className="flex justify-center items-center h-screen">
