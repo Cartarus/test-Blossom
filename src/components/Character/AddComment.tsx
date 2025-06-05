@@ -24,7 +24,9 @@ export const AddComment = ({ id }: AddCommentProps) => {
         onChange={(e) => setComment(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleAddComment();
+            if (comment.length > 0) {
+              handleAddComment();
+            }
           }
         }}
       />
