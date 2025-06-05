@@ -29,7 +29,8 @@ export const AddComment = ({ id }: AddCommentProps) => {
         }}
       />
       <button
-        className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 cursor-pointer"
+        className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={comment.length === 0}
         onClick={() => handleAddComment()}
       >
         Add

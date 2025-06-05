@@ -45,7 +45,17 @@ La aplicación estará disponible en `http://localhost:5173`
 - `npm run preview`: Previsualiza la build de producción
 - `npm run codegen`: Genera los tipos de GraphQL
 
-## 📦 Estructura del Proyecto
+## 🧪 Testing
+
+El proyecto utiliza Jest y React Testing Library para las pruebas unitarias y de integración.
+
+### Scripts de Testing
+
+- `npm test`: Ejecuta todas las pruebas
+
+### Estructura de Tests
+
+Los tests se organizan siguiendo la misma estructura del proyecto, con archivos `.test.tsx` o `.spec.tsx` junto a los componentes que prueban:
 
 ```
 prueba-tecnica/
